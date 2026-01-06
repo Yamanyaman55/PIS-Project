@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        native:
+          searchLocations: file://${pwd}/configs
+  profiles:
+    active: native
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://service-discovery:8080/eureka/}
+  instance:
+    preferIpAddress: true
+logging:
+  level:
+    com.netflix.eureka: DEBUG
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh

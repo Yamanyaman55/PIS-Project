@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  parcel-tracker:
+    image: localhost:8084/parcel-tracker:latest
+    ports:
+      - "7038:8080"
+    networks:
+      - infrastructure_parcel-services
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - EUREKA_URI=http://service-discovery:8080/eureka/
+networks:
+  infrastructure_parcel-services:
+    external: true

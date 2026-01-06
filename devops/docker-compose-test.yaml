@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  service-discovery:
+    build: ../service-discovery
+    ports:
+      - "8761:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=native
+    networks:
+      - app-network
+
+  config-server:
+    build: ../config-server
+    ports:
+      - "8888:8888"
+    environment:
+      - SPRING_PROFILES_ACTIVE=native,git
+    networks:
+      - app-network
+    depends_on:
+      - service-discovery
+
+  gateway:
+    build: ../gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
+      - SPRING_CLOUD_CONFIG_URI=http://config-server:8888
+    networks:
+      - app-network
+    depends_on:
+      - service-discovery
+      - config-server
+
+  parcel-finder:
+    build: ../parcel-finder
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
+      - SPRING_CLOUD_CONFIG_URI=http://config-server:8888
+    networks:
+      - app-network
+    depends_on:
+      - gateway
+
+  parcel-tracker:
+    build: ../parcel-tracker
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
+      - SPRING_CLOUD_CONFIG_URI=http://config-server:8888
+    networks:
+      - app-network
+    depends_on:
+      - gateway
+
+  report-generator:
+    build: ../report-generator
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
+      - SPRING_CLOUD_CONFIG_URI=http://config-server:8888
+    networks:
+      - app-network
+    depends_on:
+      - gateway
+
+  frontend:
+    build: ../frontend
+    ports:
+      - "3000:3000" # Mapping Container 3000 to Host 3000
+    networks:
+      - app-network
+    depends_on:
+      - gateway
+
+networks:
+  app-network:
+    driver: bridge

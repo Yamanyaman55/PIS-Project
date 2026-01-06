@@ -1,0 +1,42 @@
+spring:
+  application:
+      name: parcel-finder
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: CONFIG-SERVER
+  config:
+    import: "optional:configserver:"
+  data:
+    elasticsearch:
+      cluster-nodes: elasticsearch:9200
+  kafka:
+    bootstrap-servers: kafka:9092
+    consumer:
+      bootstrap-servers: kafka:9092
+  jpa:
+    properties:
+      hibernate:
+        search:
+          backend:
+            hosts: elasticsearch:9200
+hibernate:
+  search:
+    backend:
+      hosts: elasticsearch:9200
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://service-discovery:8080/eureka/}
+  instance:
+    preferIpAddress: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh

@@ -1,0 +1,62 @@
+spring:
+  application:
+    name: report-generator
+  data:
+    redis:
+      port: 6379
+      host: redis
+  cloud:
+    loadbalancer:
+      enabled: true
+    config:
+      discovery:
+        enabled: true
+        service-id: CONFIG-SERVER
+      enabled: true
+  config:
+    import: "optional:configserver:"
+  minio:
+    host: minio
+    port: 9000
+    username: minio-root-user
+    password: minio-root-password
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://service-discovery:8080/eureka/}
+    enabled: true
+  instance:
+    preferIpAddress: true
+logging:
+  level:
+    com.netflix.eureka: DEBUG
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - refresh
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+    instances:
+      reportGeneratorService:
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 5s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED

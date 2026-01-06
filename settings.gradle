@@ -1,0 +1,10 @@
+rootProject.name = 'PIS-main'
+
+include 'config-server'
+include 'gateway'
+include 'hello-world'
+include 'parcel-finder'
+include 'parcel-tracker'
+include 'report-generator'
+include 'service-discovery'
+include 'selenium-tests'

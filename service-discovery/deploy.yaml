@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  service-discovery:
+    image: localhost:8084/service-discovery:latest
+    ports:
+      - "7020:8080"
+      - "7021:8761"
+    networks:
+      - infrastructure_parcel-services
+
+networks:
+  infrastructure_parcel-services:
+    external: true
+

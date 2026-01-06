@@ -1,0 +1,45 @@
+spring:
+  minio:
+    host: localhost
+    port: 9000
+    username: minio-root-user
+    password: minio-root-password
+  data:
+    redis:
+      port: 6379
+      host: localhost
+
+  application:
+    name: report-generator
+  cloud:
+    loadbalancer:
+      enabled: false
+    config:
+      enabled: false
+    # openfeign:
+    #   client:
+    #     config:
+    #       parcel-finder:
+    #         connect-timeout: 3000
+    #         url: http://localhost:8000
+  config:
+    import: "optional:configserver:"
+
+server:
+  port: 9999
+eureka:
+  client:
+    enabled: false
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include:
+          - '*'
+

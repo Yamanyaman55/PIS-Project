@@ -1,0 +1,34 @@
+spring:
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+  application:
+    name: gateway
+
+logging:
+  level:
+    com:
+      parcel:
+        gateway: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health
+  endpoint:
+    health:
+      show-details: always
+    gateway:
+      enabled: true
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://service-discovery:8080/eureka/}
+  instance:
+    preferIpAddress: true
+

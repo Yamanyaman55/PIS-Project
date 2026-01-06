@@ -1,0 +1,10 @@
+spring:
+  name: service-discovery
+eureka:
+  instance:
+    hostname: service-discovery
+  client:
+    service-url:
+      defaultZone: http://service-discovery:8080/eureka/
+
+

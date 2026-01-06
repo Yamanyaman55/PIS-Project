@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: parcel-tracker
+  kafka:
+    parcel-status-change-topic: parcel-status-change
+    bootstrap-servers: localhost:29092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      bootstrap-servers: localhost:29092
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: CONFIG-SERVER
+  config:
+    import: "optional:configserver:"
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
+      database: ${MONGODB_NAME}
+
+server:
+  port: 9098
+
+logging:
+  level:
+    com:
+      parcel:
+        tracker: DEBUG
+
+eureka:
+ client:
+   service-url:
+     defaultZone: ${EUREKA_URI:http://localhost:7020/eureka}
+ instance:
+   preferIpAddress: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - refresh
+          - info
