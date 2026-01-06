@@ -78,7 +78,7 @@ pipeline {
                     dir('devops') {
                         echo "Starting Docker Environment..."
                         // Ensure images are built (some use ../path so contexts are correct)
-                        sh 'docker compose -f docker-compose-test.yaml up -d --build'
+                        sh 'docker-compose -f docker-compose-test.yaml up -d --build'
                     }
                     
                     // 3. Wait for services (simple sleep, ideal uses healthchecks)
@@ -113,7 +113,7 @@ pipeline {
         always {
              script {
                  dir('devops') {
-                     sh 'docker compose -f docker-compose-test.yaml down'
+                     sh 'docker-compose -f docker-compose-test.yaml down'
                  }
                  // Reset frontend changes
                  sh "git checkout frontend/src/functions.js || true"
