@@ -30,11 +30,13 @@ public class SeleniumScenarios {
         System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
 
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new"); // Better headless mode
+        options.addArguments("--headless"); // Revert to legacy headless for stability
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-gpu");
         options.addArguments("--remote-allow-origins=*");
+        options.addArguments("--remote-debugging-port=9222"); // Fix for some crash scenarios
+        options.addArguments("--window-size=1920,1080"); // Ensure elements are visible
         // Explicitly set binary path for Jenkins/Linux environments if standard path
         // fails
         options.setBinary("/usr/bin/chromium");
