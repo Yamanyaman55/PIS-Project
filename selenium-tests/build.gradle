@@ -18,6 +18,8 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    // Forward the app.url system property from command line to the test JVM
+    systemProperty "app.url", System.getProperty("app.url")
     testLogging {
         events "passed", "skipped", "failed"
     }
