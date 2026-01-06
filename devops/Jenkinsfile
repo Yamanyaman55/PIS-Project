@@ -74,8 +74,8 @@ pipeline {
             steps {
                 script {
                     // 1. Modify Frontend API URL
-                    // Note: Use | as delimiter to avoid conflict with / in URL
-                    sh "sed -i 's|https://mszawerdops.bieda.it/api|http://localhost:8080/api|g' frontend/src/functions.js"
+                    // Use host.docker.internal for Mac/Docker networking and port 8090 to avoid Jenkins conflict
+                    sh "sed -i 's|https://mszawerdops.bieda.it/api|http://host.docker.internal:8090/api|g' frontend/src/functions.js"
                     
                     // 2. Build and Run Docker Compose
                     dir('devops') {
@@ -97,7 +97,8 @@ pipeline {
                     echo "Running Selenium Scenarios..."
                     sh 'chmod +x gradlew'
                     try {
-                        sh './gradlew test'
+                        // Pass host.docker.internal so Selenium (in container) reaches App (on host)
+                        sh './gradlew test -Dapp.url=http://host.docker.internal:3000'
                     } catch (Exception e) {
                         echo "Selenium Tests Failed"
                         currentBuild.result = 'FAILURE'
