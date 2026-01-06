@@ -1,9 +1,5 @@
 pipeline {
     agent any
-    
-    environment {
-        // Environment variables
-    }
 
     stages {
         stage('Checkout SCM') {
@@ -96,13 +92,15 @@ pipeline {
                 dir('selenium-tests') {
                     echo "Running Selenium Scenarios..."
                     sh 'chmod +x gradlew'
-                    try {
-                        // Pass host.docker.internal so Selenium (in container) reaches App (on host)
-                        sh './gradlew test -Dapp.url=http://host.docker.internal:3000'
-                    } catch (Exception e) {
-                        echo "Selenium Tests Failed"
-                        currentBuild.result = 'FAILURE'
-                        error("Selenium Scenarios Failed")
+                    script {
+                        try {
+                            // Pass host.docker.internal so Selenium (in container) reaches App (on host)
+                            sh './gradlew test -Dapp.url=http://host.docker.internal:3000'
+                        } catch (Exception e) {
+                            echo "Selenium Tests Failed"
+                            currentBuild.result = 'FAILURE'
+                            error("Selenium Scenarios Failed")
+                        }
                     }
                     junit allowEmptyResults: true, testResults: '**/build/test-results/test/*.xml'
                 }
