@@ -26,7 +26,9 @@ public class SeleniumScenarios {
 
     @BeforeAll
     static void setup() {
-        WebDriverManager.chromedriver().setup();
+        // WebDriverManager.chromedriver().setup(); // Disabled: Using system driver
+        System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
+
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new"); // Better headless mode
         options.addArguments("--no-sandbox");
