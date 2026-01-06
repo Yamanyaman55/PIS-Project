@@ -16,7 +16,8 @@ pipeline {
                         dir(service) {
                             echo "Building ${service}..."
                             sh 'chmod +x gradlew'
-                            sh './gradlew clean build -x test'
+                            // Limit memory to prevent Docker container OOM kills
+                            sh './gradlew clean build -x test -Dorg.gradle.jvmargs="-Xmx256m -Xms128m"'
                         }
                     }
                 }
@@ -33,7 +34,7 @@ pipeline {
                             // Continue on failure to ensure all run, or fail fast?
                             // Requirements say "report status".
                             try {
-                                sh './gradlew test'
+                                sh './gradlew test -Dorg.gradle.jvmargs="-Xmx256m -Xms128m"'
                             } catch (Exception e) {
                                 echo "${service} Unit Tests Failed"
                                 currentBuild.result = 'UNSTABLE'
@@ -56,7 +57,7 @@ pipeline {
                             // If no separate task, we can skip or run specific tests.
                             // For this assignment, we'll try to run them if configured.
                             try {
-                                sh './gradlew test' // Re-running tests as proxy for integration if no task
+                                sh './gradlew test -Dorg.gradle.jvmargs="-Xmx256m -Xms128m"' // Re-running tests as proxy for integration if no task
                             } catch (Exception e) {
                                 echo "${service} Integration Tests Failed"
                             }
@@ -95,7 +96,7 @@ pipeline {
                     script {
                         try {
                             // Pass host.docker.internal so Selenium (in container) reaches App (on host)
-                            sh './gradlew test -Dapp.url=http://host.docker.internal:3000'
+                            sh './gradlew test -Dapp.url=http://host.docker.internal:3000 -Dorg.gradle.jvmargs="-Xmx256m -Xms128m"'
                         } catch (Exception e) {
                             echo "Selenium Tests Failed"
                             currentBuild.result = 'FAILURE'
