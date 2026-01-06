@@ -28,11 +28,15 @@ public class SeleniumScenarios {
     static void setup() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless"); // Run headless for Jenkins/Docker environment
+        options.addArguments("--headless=new"); // Better headless mode
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--disable-gpu");
         options.addArguments("--remote-allow-origins=*");
-        // options.addArguments("--window-size=1920,1080");
+        // Explicitly set binary path for Jenkins/Linux environments if standard path
+        // fails
+        options.setBinary("/usr/bin/chromium");
+
         driver = new ChromeDriver(options);
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
