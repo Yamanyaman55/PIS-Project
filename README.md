@@ -9,18 +9,23 @@
   * [Yapı](#yapı)
 <!-- TOC -->
 
-## Proje Genel Bakış
-Bu depo, mikro hizmet tabanlı bir Kargo Takip Sistemi içerir. Başlangıçta bir kolej ödevi olarak geliştirilmiştir.
-Müşterilerin benzersiz takip numaraları kullanarak gönderileri eklemelerini ve takip etmelerini sağlar. Sistem, hassas gönderi konumu takibi için çeşitli taşıyıcılarla entegre olur.
-Ana özellikler arasında takip geçmişinin yerel veritabanında saklanması ve kayıtlı gönderiler için otomatik güncellemeler bulunur.
-Sistem ayrıca tüm gönderi nitelikleri arasında arama yapmayı destekler ve takip geçmişlerini yazdırma işlevi sunar; dosyalar özel bir kaynakta saklanır.
+## Project Overview
+This repository contains a microservices-based Parcel Tracking System, initially developed as a college assignment by a team of four. 
+It allows clients to add and track shipments using unique tracking numbers. The system integrates with various carriers for precise shipment location tracking. 
+Key features include local database storage of tracking history and automatic updates for registered shipments. 
+The system also supports searching across all shipment attributes and offers functionality for printing tracking histories, with files stored in a dedicated resource.
 
+### Note
+At the time of college submission, the project was in its [initial form](https://github.com/Percival33/PIS/tree/e904b722c8ec0cf4c6c1359c2bb9e564471e1912). 
+Post-submission, it has been further developed to include Kubernetes support, along with the addition of monitoring tools Grafana and Prometheus. 
 
+## Team Members
+- [Dawid Kaszyński](https://github.com/dawidkasz)
+- [Mikołaj Szawerda](https://github.com/MikolajSzawerda)
+- [Jakub Jażdzyk](https://github.com/kubajaz)
+- [Marcin Jarczewski](https://github.com/percival33)
 
-## Geliştirici
-- Nurullah
-
-## Proje Gereksinimleri
+## Project Requirements
 
 **CI/CD:** Jenkins  
 **Artifact Deposu:** Nexus
@@ -62,5 +67,5 @@ Proje, aşağıdaki hizmetleri içeren bir monorepo (tek depo) olarak yapıland�
 - `service-discovery`: Eureka keşif sunucusu.
 - `config-server`: Mikro hizmetler için dış yapılandırmaların yönetimi.
 
-**Ek Dizinler:**
-- `devops`: NGINX ters proxy yapılandırması, Jenkins kurulumu ve otomatik derleme ve dağıtım betikleri.
+**Additional Directories:**
+- `devops`: Configuration for NGINX reverse proxy, Jenkins setup, and automated build and deployment scripts.
