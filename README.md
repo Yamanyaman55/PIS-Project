@@ -15,7 +15,8 @@ Müşterilerin benzersiz takip numaraları kullanarak gönderileri eklemelerini 
 Ana özellikler arasında takip geçmişinin yerel veritabanında saklanması ve kayıtlı gönderiler için otomatik güncellemeler bulunur.
 Sistem ayrıca tüm gönderi nitelikleri arasında arama yapmayı destekler ve takip geçmişlerini yazdırma işlevi sunar; dosyalar özel bir kaynakta saklanır.
 
-
+### Not
+Teslimat sırasında proje [ilk halindeydi](https://github.com/Percival33/PIS/tree/e904b722c8ec0cf4c6c1359c2bb9e564471e1912).
 Daha sonra, Kubernetes desteği ve Grafana ile Prometheus izleme araçlarının eklenmesiyle daha da geliştirildi.
 
 ## Geliştirici
@@ -65,3 +66,10 @@ Proje, aşağıdaki hizmetleri içeren bir monorepo (tek depo) olarak yapıland�
 
 **Ek Dizinler:**
 - `devops`: NGINX ters proxy yapılandırması, Jenkins kurulumu ve otomatik derleme ve dağıtım betikleri.
+
+
+
+
+
+
+deneme
