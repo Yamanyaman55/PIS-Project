@@ -68,7 +68,7 @@ Proje, aşağıdaki hizmetleri içeren bir monorepo (tek depo) olarak yapıland�
 - `devops`: NGINX ters proxy yapılandırması, Jenkins kurulumu ve otomatik derleme ve dağıtım betikleri.
 
 
-
+deneme
 
 
 
