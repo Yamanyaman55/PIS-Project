@@ -72,4 +72,3 @@ Proje, aşağıdaki hizmetleri içeren bir monorepo (tek depo) olarak yapıland�
 
 
 
-deneme
